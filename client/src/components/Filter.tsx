@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -7,42 +7,47 @@ import {
   MenuItem,
   TextField,
   Button,
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { options } from '../consts/consts';
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { options } from "../consts/consts";
 
 interface FilterProps {
   id: string;
-  sendValues: (values: { id: string; selection: string; comparator: string; constraint: string }) => void;
+  sendValues: (values: {
+    id: string;
+    selection: string;
+    comparator: string;
+    constraint: string;
+  }) => void;
 }
 
 const filterStyles = makeStyles({
   formControl: {
     minWidth: 200,
-    margin: '1rem',
+    margin: "1rem",
   },
   paper: {
     minWidth: 1050,
-    marginBottom: '2rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginBottom: "2rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   btn: {
-    backgroundColor: '#3f51b5',
-    color: '#f50057',
+    backgroundColor: "#3f51b5",
+    color: "#f50057",
   },
   btn_checked: {
-    backgroundColor: '#f50057',
-    color: '#3f51b5',
+    backgroundColor: "#f50057",
+    color: "#3f51b5",
   },
 });
 
 export default function Filter(props: FilterProps): JSX.Element {
   const classes = filterStyles();
-  const [s1, sets1] = useState<string>('');
-  const [s2, sets2] = useState<string>('');
-  const [s3, sets3] = useState<string>('');
+  const [s1, sets1] = useState<string>("");
+  const [s2, sets2] = useState<string>("");
+  const [s3, sets3] = useState<string>("");
 
   const handleClick = () => {
     props.sendValues({
@@ -59,7 +64,9 @@ export default function Filter(props: FilterProps): JSX.Element {
         <InputLabel>Campos</InputLabel>
         <Select
           value={s1}
-          onChange={(e: ChangeEvent<{ value: unknown }>) => sets1(e.target.value as string)}
+          onChange={(e: ChangeEvent<{ value: unknown }>) =>
+            sets1(e.target.value as string)
+          }
         >
           {options.map((option) => (
             <MenuItem key={option} value={option}>
@@ -73,9 +80,17 @@ export default function Filter(props: FilterProps): JSX.Element {
         <InputLabel>Comparações</InputLabel>
         <Select
           value={s2}
-          onChange={(e: ChangeEvent<{ value: unknown }>) => sets2(e.target.value as string)}
+          onChange={(e: ChangeEvent<{ value: unknown }>) =>
+            sets2(e.target.value as string)
+          }
         >
-          {/* ... (mesmo código do Select anterior) */}
+          <MenuItem value={"<"}>Menor que</MenuItem>
+          <MenuItem value={">"}>Maior que</MenuItem>
+          <MenuItem value={"<="}>Menor/igual que</MenuItem>
+          <MenuItem value={">="}>Maior/igual que</MenuItem>
+          <MenuItem value={"="}>Igual a</MenuItem>
+          <MenuItem value={"!="}>Diferente de</MenuItem>
+          <MenuItem value={"like"}>Semelhante a</MenuItem>
         </Select>
       </FormControl>
 
