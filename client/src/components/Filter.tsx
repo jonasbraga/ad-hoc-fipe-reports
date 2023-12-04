@@ -66,7 +66,7 @@ export default function Filter(props: FilterProps): JSX.Element {
         className={s1 && s2 && s3 ? classes.btn : classes.btn_checked}
         onClick={handleClick}
       >
-        {s1 && s2 && s3 ? "Confirmar Filtro" : "Preencha todos os campos"}
+        {s1 && s2 && s3 ? "Filtro confirmado" : "Preencha todos os campos"}
       </Button>
 
       </FormControl>
