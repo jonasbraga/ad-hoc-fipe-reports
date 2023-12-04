@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { FormGroup, Paper, Button } from '@mui/material';
-import TransferList from './components/TransferList';
-import Filter from './components/Filter';
-import Table from './components/Table';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { FormGroup, Paper, Button } from "@mui/material";
+import TransferList from "./components/TransferList";
+import Filter from "./components/Filter";
+import Table from "./components/Table";
+import "./App.css";
+import plusIcon from "./plus.svg";
 
 interface FiltroValues {
   selection: string;
@@ -26,9 +27,9 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [aux, setAux] = useState<AuxState>({
     id: -1,
-    selection: 'a',
-    comparator: 'a',
-    constraint: 'a',
+    selection: "a",
+    comparator: "a",
+    constraint: "a",
   });
   const [level, setLevel] = useState(0);
 
@@ -51,11 +52,11 @@ const App: React.FC = () => {
       filtros: filtrosValues,
     };
     let data = JSON.stringify(jsonBody);
-    fetch('http://localhost:3333/', {
-      method: 'POST',
+    fetch("http://localhost:3333/", {
+      method: "POST",
       body: data,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
@@ -74,7 +75,22 @@ const App: React.FC = () => {
         <div className="report">
           {level === 0 && (
             <>
-              <h3>FIPE REPORTS AD-HOC</h3>
+              <div
+                className="header-content"
+                style={{ backgroundColor: "#fff" }}
+              >
+                <h3>FIPE REPORTS AD-HOC</h3>
+                <p className="description">
+                  A Tabela FIPE expressa preços médios de veículos no mercado
+                  nacional, sendo uma referência para avaliações e negociações.
+                </p>
+                <p>
+                  Nosso site oferece uma experiência única, possibilitando a
+                  geração fácil e eficiente de relatórios e gráficos com base
+                  nos dados da Tabela FIPE.
+                </p>
+              </div>
+
               <Button
                 variant="contained"
                 color="primary"
@@ -84,36 +100,41 @@ const App: React.FC = () => {
               </Button>
             </>
           )}
+
           {level === 1 && (
             <>
-              <div className="options">
-                <div className="containerTransfer">
-                  <div className="transfer">
-                    <h2> Escolha as colunas</h2>
-                    <FormGroup>
-                      <Paper elevation={5}>
-                        <TransferList setFunction={setSelections} />
-                      </Paper>
-                    </FormGroup>
-                  </div>
+            <div className="parent-div" style={{ width: '200%', maxWidth: '800px', margin: 'auto' }}>
+              <div className="column-selection">
+                <h2>Escolha as colunas</h2>
+                <div className="column-options">
+                  <Paper elevation={5} style={{ width: '200%', padding: '5px' }}>
+                  <TransferList setFunction={setSelections}/>
+                  </Paper>
+                </div>
+            </div>
+                <div className="button-container" >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      setFiltros([
+                        ...filtros,
+                        <Filter
+                          key={filtros.length}
+                          id={filtros.length}
+                          sendValues={setAux}
+                        />,
+                      ]);
+                      setLevel(2);
+                    }}
+                  >
+                    Confirmar
+                  </Button>
                 </div>
               </div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  setFiltros([
-                    ...filtros,
-                    <Filter key={filtros.length} id={filtros.length} sendValues={setAux} />,
-                  ]);
-                  setLevel(2);
-                }}
-              >
-                Adicionar filtros
-              </Button>
             </>
           )}
-  
+
           {level === 2 && (
             <>
               <div className="filters">
@@ -127,26 +148,49 @@ const App: React.FC = () => {
                   onClick={() => {
                     setFiltros([
                       ...filtros,
-                      <Filter key={filtros.length} id={filtros.length} sendValues={setAux} />,
+                      <Filter
+                        key={filtros.length}
+                        id={filtros.length}
+                        sendValues={setAux}
+                      />,
                     ]);
                   }}
                 >
-                  Adicionar Filtro
+                  <img src={plusIcon} alt="Plus Icon" />
                 </Button>
               </div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  sendRequest();
-                  setLevel(3);
-                }}
-              >
-                Gerar Relatório
-              </Button>
+              <div className="button-container">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    sendRequest();
+                    setLevel(3);
+                  }}
+                >
+                  Gerar Relatório
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    sendRequest();
+                    setLevel(3);
+                  }}
+                >
+                  Gerar Gráficos
+                </Button>
+              </div>
             </>
           )}
-  
+
+          {level === 3 && (
+            <div className="table">
+              {!loading && <Table tableData={table} keys={selections} />}
+            </div>
+          )}
+
           {level === 3 && (
             <div className="table">
               {!loading && <Table tableData={table} keys={selections} />}

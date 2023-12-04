@@ -6,11 +6,9 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
   return (
     <Container>
-      <img src="./images/rick.svg" alt="Rick" />
       <Typography variant="h3">
-        Relatório AdHOC - Rick and Morty API
+        FIPE AdHOC
       </Typography>
-      <img src="./images/morty.svg" alt="Morty" />
     </Container>
   );
 };

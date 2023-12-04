@@ -1,12 +1,11 @@
 import {
-  Grid,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Checkbox,
-  Button,
   Paper,
+  Button,
 } from '@mui/material';
 import { styled, makeStyles } from '@mui/styles';
 import ArrowRightSharpIcon from '@mui/icons-material/ArrowRightSharp';
@@ -24,10 +23,6 @@ const StyledDiv = styled('div')({
 });
 
 const useStyles = makeStyles({
-  root: {
-    margin: 'auto',
-    display: 'flex',
-  },
   paper: {
     width: 250,
     height: 350,
@@ -42,22 +37,10 @@ const useStyles = makeStyles({
   },
 });
 
-function not<T>(a: T[], b: T[]): T[] {
-  return a.filter((value) => b.indexOf(value) === -1);
-}
-
-function intersection<T>(a: T[], b: T[]): T[] {
-  return a.filter((value) => b.indexOf(value) !== -1);
-}
-
 const TransferList: React.FC<TransferListProps> = (props) => {
   const classes = useStyles();
   const [checked, setChecked] = useState<string[]>([]);
-  const [left, setLeft] = useState<string[]>(options);
-  const [right, setRight] = useState<string[]>([]);
-
-  const leftChecked = intersection(checked, left);
-  const rightChecked = intersection(checked, right);
+  const [items, setItems] = useState<string[]>(options);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -73,22 +56,10 @@ const TransferList: React.FC<TransferListProps> = (props) => {
   };
 
   useEffect(() => {
-    props.setFunction(right);
-  }, [right, props]);
+    props.setFunction(checked);
+  }, [checked, props]);
 
-  const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
-    setChecked(not(checked, leftChecked));
-  };
-
-  const handleCheckedLeft = () => {
-    setLeft(left.concat(rightChecked));
-    setRight(not(right, rightChecked));
-    setChecked(not(checked, rightChecked));
-  };
-
-  const customList = (items: string[]) => (
+  const customList = () => (
     <Paper className={classes.paper}>
       <List dense component="div" role="list">
         {items.map((value) => {
@@ -116,34 +87,7 @@ const TransferList: React.FC<TransferListProps> = (props) => {
 
   return (
     <StyledDiv>
-      <Grid container spacing={2} justifyContent="center" alignItems="center" className={classes.root}>
-        {customList(left)}
-        <Grid item>
-          <Grid container direction="column" alignItems="center">
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.button}
-              onClick={handleCheckedRight}
-              disabled={leftChecked.length === 0}
-              aria-label="move selected right"
-            >
-              <ArrowRightSharpIcon color="primary" />
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.button}
-              onClick={handleCheckedLeft}
-              disabled={rightChecked.length === 0}
-              aria-label="move selected left"
-            >
-              <ArrowLeftSharpIcon color="primary" />
-            </Button>
-          </Grid>
-        </Grid>
-        {customList(right)}
-      </Grid>
+      {customList()}
     </StyledDiv>
   );
 };

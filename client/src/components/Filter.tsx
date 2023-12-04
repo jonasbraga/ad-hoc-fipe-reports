@@ -61,7 +61,17 @@ export default function Filter(props: FilterProps): JSX.Element {
   return (
     <Paper elevation={5} className={classes.paper}>
       <FormControl className={classes.formControl}>
-        <InputLabel>Campos</InputLabel>
+      <Button
+        variant="contained"
+        className={s1 && s2 && s3 ? classes.btn : classes.btn_checked}
+        onClick={handleClick}
+      >
+        {s1 && s2 && s3 ? "Confirmar Filtro" : "Preencha todos os campos"}
+      </Button>
+
+      </FormControl>
+      <FormControl className={classes.formControl}>
+        <InputLabel>Colunas</InputLabel>
         <Select
           value={s1}
           onChange={(e: ChangeEvent<{ value: unknown }>) =>
@@ -77,20 +87,20 @@ export default function Filter(props: FilterProps): JSX.Element {
       </FormControl>
 
       <FormControl className={classes.formControl}>
-        <InputLabel>Comparações</InputLabel>
+        <InputLabel>Condições</InputLabel>
         <Select
           value={s2}
           onChange={(e: ChangeEvent<{ value: unknown }>) =>
             sets2(e.target.value as string)
           }
         >
-          <MenuItem value={"<"}>Menor que</MenuItem>
-          <MenuItem value={">"}>Maior que</MenuItem>
-          <MenuItem value={"<="}>Menor/igual que</MenuItem>
-          <MenuItem value={">="}>Maior/igual que</MenuItem>
           <MenuItem value={"="}>Igual a</MenuItem>
           <MenuItem value={"!="}>Diferente de</MenuItem>
           <MenuItem value={"like"}>Semelhante a</MenuItem>
+          <MenuItem value={"<"}>Menor que</MenuItem>
+          <MenuItem value={"<="}>Menor/igual que</MenuItem>
+          <MenuItem value={">"}>Maior que</MenuItem>
+          <MenuItem value={">="}>Maior/igual que</MenuItem>
         </Select>
       </FormControl>
 
@@ -99,16 +109,6 @@ export default function Filter(props: FilterProps): JSX.Element {
           label="Valor"
           onChange={(e: ChangeEvent<HTMLInputElement>) => sets3(e.target.value)}
         />
-      </FormControl>
-
-      <FormControl className={classes.formControl}>
-        <Button
-          variant="contained"
-          className={s1 && s2 && s3 ? classes.btn : classes.btn_checked}
-          onClick={handleClick}
-        >
-          Confirmar Filtro
-        </Button>
       </FormControl>
     </Paper>
   );
