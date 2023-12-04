@@ -61,14 +61,13 @@ export default function Filter(props: FilterProps): JSX.Element {
   return (
     <Paper elevation={5} className={classes.paper}>
       <FormControl className={classes.formControl}>
-      <Button
-        variant="contained"
-        className={s1 && s2 && s3 ? classes.btn : classes.btn_checked}
-        onClick={handleClick}
-      >
-        {s1 && s2 && s3 ? "Filtro confirmado" : "Preencha todos os campos"}
-      </Button>
-
+        <Button
+          variant="contained"
+          className={s1 && s2 && s3 ? classes.btn : classes.btn_checked}
+          style={{ pointerEvents: "none" }}
+        >
+          {s1 && s2 && s3 ? "Filtro confirmado" : "Preencha todos os campos"}
+        </Button>
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel>Colunas</InputLabel>

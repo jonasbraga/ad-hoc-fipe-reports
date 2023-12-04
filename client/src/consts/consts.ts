@@ -1,31 +1,18 @@
-const marcaOptions = ["marca.id", "codigo", "nome_marca"];
+const modeloOptions = ["codigo_modelo_fipe"];
 
-const modeloOptions = [
-  "modelo.id",
-  "codigo_modelo_fipe",
-  "nome_modelo",
-  "id_marca",
-];
-
-const anoOptions = ["ano.id", "codigo", "nome", "ano"];
+const anoOptions = ["ano"];
 
 const detalhesVeiculoOptions = [
-  "detalhes_veiculo.id",
-  "tipo_veiculo",
-  "valor",
   "marca",
   "modelo",
-  "ano_modelo",
+  "valor",
   "combustivel",
   "codigo_fipe",
   "mes_referencia",
   "sigla_combustivel",
-  "id_modelo",
-  "id_ano",
 ];
 
 const avaliacaoSegurancaOptions = [
-  "avaliacao_seguranca.id",
   "imagem_veiculo",
   "avaliacao_geral",
   "avaliacao_capotagem",
@@ -49,18 +36,13 @@ const avaliacaoSegurancaOptions = [
   "complaints_count",
   "recalls_count",
   "investigation_count",
-  "model_year",
-  "make",
   "model",
   "vehicle_description",
-  "vehicle_id",
-  "id_veiculo",
 ];
 
 export const options: string[] = [
-  ...marcaOptions,
-  ...modeloOptions,
-  ...anoOptions,
   ...detalhesVeiculoOptions,
+  ...anoOptions,
+  ...modeloOptions,
   ...avaliacaoSegurancaOptions,
 ];

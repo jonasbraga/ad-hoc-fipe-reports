@@ -6,34 +6,34 @@ import {
   Checkbox,
   Paper,
   Button,
-} from '@mui/material';
-import { styled, makeStyles } from '@mui/styles';
-import ArrowRightSharpIcon from '@mui/icons-material/ArrowRightSharp';
-import ArrowLeftSharpIcon from '@mui/icons-material/ArrowLeftSharp';
-import React, { useEffect, useState } from 'react';
-import { options } from '../consts/consts';
+} from "@mui/material";
+import { styled, makeStyles } from "@mui/styles";
+import ArrowRightSharpIcon from "@mui/icons-material/ArrowRightSharp";
+import ArrowLeftSharpIcon from "@mui/icons-material/ArrowLeftSharp";
+import React, { useEffect, useState } from "react";
+import { options } from "../consts/consts";
 
 interface TransferListProps {
   setFunction: (items: string[]) => void;
 }
 
-const StyledDiv = styled('div')({
-  margin: 'auto',
-  display: 'flex',
+const StyledDiv = styled("div")({
+  margin: "auto",
+  display: "flex",
 });
 
 const useStyles = makeStyles({
   paper: {
     width: 250,
     height: 350,
-    overflow: 'auto',
-    border: '1px solid #4254B5',
-    margin: '1rem',
+    overflow: "auto",
+    border: "1px solid #4254B5",
+    margin: "1rem",
   },
   button: {
-    border: '1px solid #4254B5',
-    backgroundColor: 'white',
-    margin: '0.5rem 0',
+    border: "1px solid #4254B5",
+    backgroundColor: "white",
+    margin: "0.5rem 0",
   },
 });
 
@@ -60,20 +60,25 @@ const TransferList: React.FC<TransferListProps> = (props) => {
   }, [checked, props]);
 
   const customList = () => (
-    <Paper className={classes.paper}>
+    <Paper style={{ width: "100%" }} className={classes.paper}>
       <List dense component="div" role="list">
         {items.map((value) => {
           const labelId = `transfer-list-item-${value}-label`;
 
           return (
-            <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+            <ListItem
+              key={value}
+              role="listitem"
+              button
+              onClick={handleToggle(value)}
+            >
               <ListItemIcon>
                 <Checkbox
                   checked={checked.indexOf(value) !== -1}
                   tabIndex={-1}
                   color="primary"
                   disableRipple
-                  inputProps={{ 'aria-labelledby': labelId }}
+                  inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon>
               <ListItemText id={labelId} primary={value} />
@@ -85,11 +90,7 @@ const TransferList: React.FC<TransferListProps> = (props) => {
     </Paper>
   );
 
-  return (
-    <StyledDiv>
-      {customList()}
-    </StyledDiv>
-  );
+  return <StyledDiv>{customList()}</StyledDiv>;
 };
 
 export default TransferList;

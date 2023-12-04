@@ -6,7 +6,7 @@ import Table from "./components/Table";
 import "./App.css";
 //@ts-ignore
 import plusIcon from "./plus.svg";
-import ChartComponent from './components/ChartComponent';
+import ChartComponent from "./components/ChartComponent";
 
 interface FiltroValues {
   selection: string;
@@ -108,14 +108,14 @@ const App: React.FC = () => {
             <>
               <div
                 className="parent-div"
-                style={{ width: "200%", maxWidth: "800px", margin: "auto" }}
+                style={{ width: "100%", margin: "auto" }}
               >
                 <div className="column-selection">
                   <h2>Escolha as colunas</h2>
                   <div className="column-options">
                     <Paper
                       elevation={5}
-                      style={{ width: "200%", padding: "5px" }}
+                      style={{ width: "100%", padding: "5px" }}
                     >
                       <TransferList setFunction={setSelections} />
                     </Paper>
@@ -208,7 +208,9 @@ const App: React.FC = () => {
           )}
           {level === 4 && (
             <div className="graph">
-              <ChartComponent />
+              <Paper elevation={5} style={{ width: "100%", padding: "5px" }}>
+                <ChartComponent chartData={table} keys={selections} />
+              </Paper>
             </div>
           )}
         </div>
