@@ -38,8 +38,7 @@ export default class DbController {
           });
         })
         .distinct();
-
-      return response.status(201).json({ return: query });
+      return response.status(200).json({ return: query });
     } catch (error) {
       console.error(error);
     }

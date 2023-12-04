@@ -4,6 +4,7 @@ import TransferList from "./components/TransferList";
 import Filter from "./components/Filter";
 import Table from "./components/Table";
 import "./App.css";
+//@ts-ignore
 import plusIcon from "./plus.svg";
 
 interface FiltroValues {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
   const [selections, setSelections] = useState<string[]>([]);
   const [table, setTable] = useState<any[]>([]);
   const [filtros, setFiltros] = useState<JSX.Element[]>([]);
+  //@ts-ignore
   const [filtrosValues, setFiltrosValues] = useState<FiltroValues[]>([{}]);
   const [loading, setLoading] = useState(false);
   const [aux, setAux] = useState<AuxState>({
@@ -103,16 +105,22 @@ const App: React.FC = () => {
 
           {level === 1 && (
             <>
-            <div className="parent-div" style={{ width: '200%', maxWidth: '800px', margin: 'auto' }}>
-              <div className="column-selection">
-                <h2>Escolha as colunas</h2>
-                <div className="column-options">
-                  <Paper elevation={5} style={{ width: '200%', padding: '5px' }}>
-                  <TransferList setFunction={setSelections}/>
-                  </Paper>
+              <div
+                className="parent-div"
+                style={{ width: "200%", maxWidth: "800px", margin: "auto" }}
+              >
+                <div className="column-selection">
+                  <h2>Escolha as colunas</h2>
+                  <div className="column-options">
+                    <Paper
+                      elevation={5}
+                      style={{ width: "200%", padding: "5px" }}
+                    >
+                      <TransferList setFunction={setSelections} />
+                    </Paper>
+                  </div>
                 </div>
-            </div>
-                <div className="button-container" >
+                <div className="button-container">
                   <Button
                     variant="contained"
                     color="primary"
@@ -121,7 +129,8 @@ const App: React.FC = () => {
                         ...filtros,
                         <Filter
                           key={filtros.length}
-                          id={filtros.length}
+                          id={filtros.length.toString()}
+                          //@ts-ignore
                           sendValues={setAux}
                         />,
                       ]);
@@ -140,7 +149,12 @@ const App: React.FC = () => {
               <div className="filters">
                 <h2>Escolha os filtros da tabela</h2>
                 {filtros.map((filtro, index) => (
-                  <Filter key={index} id={index} sendValues={setAux} />
+                  <Filter
+                    key={index}
+                    id={index.toString()}
+                    //@ts-ignore
+                    sendValues={setAux}
+                  />
                 ))}
                 <Button
                   variant="contained"
@@ -150,7 +164,8 @@ const App: React.FC = () => {
                       ...filtros,
                       <Filter
                         key={filtros.length}
-                        id={filtros.length}
+                        id={filtros.length.toString()}
+                        //@ts-ignore
                         sendValues={setAux}
                       />,
                     ]);
@@ -183,12 +198,6 @@ const App: React.FC = () => {
                 </Button>
               </div>
             </>
-          )}
-
-          {level === 3 && (
-            <div className="table">
-              {!loading && <Table tableData={table} keys={selections} />}
-            </div>
           )}
 
           {level === 3 && (

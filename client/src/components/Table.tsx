@@ -1,5 +1,5 @@
-import React from 'react';
-import { MUIDataTable, MUIDataTableColumn } from 'mui-datatables';
+import React from "react";
+import MUIDataTable from "mui-datatables";
 
 interface TableProps {
   keys: string[];
@@ -7,34 +7,19 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = (props) => {
-  let columns: MUIDataTableColumn[] = [];
+  let columns: string[] = [];
 
   props.keys.forEach((key) => {
     if (key in props.tableData[0]) {
-      columns.push({ name: key, label: key });
+      columns.push(key);
     }
   });
-
-  const options = {
-    download: false,
-    customToolbar: () => (
-      <React.Fragment>
-        <button onClick={() => handleExport()}>Exportar</button>
-      </React.Fragment>
-    ),
-  };
-
-  const handleExport = () => {
-    console.log('Exportando dados...');
-    // Lógica para exportar dados, se necessário
-  };
 
   return (
     <MUIDataTable
       title="Relatório Gerado"
       data={props.tableData}
       columns={columns}
-      options={options}
     />
   );
 };
