@@ -6,6 +6,7 @@ import Table from "./components/Table";
 import "./App.css";
 //@ts-ignore
 import plusIcon from "./plus.svg";
+import ChartComponent from './components/ChartComponent';
 
 interface FiltroValues {
   selection: string;
@@ -191,7 +192,7 @@ const App: React.FC = () => {
                   color="primary"
                   onClick={() => {
                     sendRequest();
-                    setLevel(3);
+                    setLevel(4);
                   }}
                 >
                   Gerar Gráficos
@@ -203,6 +204,11 @@ const App: React.FC = () => {
           {level === 3 && (
             <div className="table">
               {!loading && <Table tableData={table} keys={selections} />}
+            </div>
+          )}
+          {level === 4 && (
+            <div className="graph">
+              <ChartComponent />
             </div>
           )}
         </div>
