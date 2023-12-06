@@ -3,6 +3,7 @@ import knex from "knex";
 //Config to connect to the database
 let db = knex({
   client: "pg",
+  debug: true,
   connection: {
     host: process.env.DB_HOST,
     //@ts-ignore
